@@ -1,4 +1,5 @@
 from queue import PriorityQueue
+import time
 
 
 class State:
@@ -122,4 +123,7 @@ while True:
     print("Bạn đã nhập không chính xác, nhập lại!")
 print("Trạng thái xuất phát: ")
 printBoard(board)
+start_time = time.time()
 aStar(State(board, 0, -1, None))
+end_time = time.time()
+print("Time:", end_time - start_time)
