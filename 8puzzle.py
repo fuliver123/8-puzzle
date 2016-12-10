@@ -95,14 +95,15 @@ def printResult(state):
 def aStar(state):
     queue = PriorityQueue()
     queue.put(state)
-    visited = set("".join(str(e) for e in state.board))
+    visited = set()
+    visited.add("".join(str(state.board)))
     while not queue.empty():
         state = queue.get()
         for i in range(0, 4):
             islegal, posmove, newboard = State.move(state.board, i)
             if islegal:
-                if "".join(str(e) for e in newboard) not in visited:
-                    visited.add("".join(str(e) for e in newboard))
+                if "".join(str(newboard)) not in visited:
+                    visited.add("".join(str(newboard)))
                     newstate = State(newboard, state.g + 1, posmove, state)
                     queue.put(newstate)
                     if newstate.isGoal():
