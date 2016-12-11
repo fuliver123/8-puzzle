@@ -6,7 +6,7 @@ class State:
     def __init__(self, board, g, posmove, father):
         self.board = board
         self.g = g
-        self.h = State.heuristicCalc(board)
+        self.h = int(State.heuristicCalc(board))
         self.posmove = posmove
         self.father = father
 
@@ -96,19 +96,19 @@ def aStar(state):
     queue = PriorityQueue()
     queue.put(state)
     visited = set()
-    visited.add("".join(str(state.board)))
     while not queue.empty():
         state = queue.get()
-        for i in range(0, 4):
-            islegal, posmove, newboard = State.move(state.board, i)
-            if islegal:
-                if "".join(str(newboard)) not in visited:
-                    visited.add("".join(str(newboard)))
+        if "".join(str(state.board)) not in visited:
+            visited.add("".join(str(state.board)))
+            for i in range(0, 4):
+                islegal, posmove, newboard = State.move(state.board, i)
+                if islegal:
                     newstate = State(newboard, state.g + 1, posmove, state)
                     queue.put(newstate)
-                    if newstate.isGoal():
-                        printResult(newstate)
+                    if state.isGoal():
+                        printResult(state)
                         return
+
     print("Bài toán không có lời giải.")
 
 
